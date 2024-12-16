@@ -1,0 +1,24 @@
+import sqlite3
+
+conn = sqlite3.connect('database/store.db')
+c = conn.cursor()
+
+# Membuat tabel products
+c.execute('''CREATE TABLE products (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    price REAL NOT NULL,
+    stock INTEGER NOT NULL
+)''')
+
+# Membuat tabel transactions
+c.execute('''CREATE TABLE IF NOT EXISTS transactions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    product_id INTEGER NOT NULL,
+    quantity INTEGER NOT NULL,
+    total REAL NOT NULL,
+    FOREIGN KEY (product_id) REFERENCES products(id)
+)''')
+
+conn.commit()
+conn.close()

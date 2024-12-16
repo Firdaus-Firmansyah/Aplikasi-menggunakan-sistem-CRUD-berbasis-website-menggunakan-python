@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Struk Pembayaran</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+      }
+      .receipt {
+        width: 300px;
+        margin: auto;
+        border: 1px solid #000;
+        padding: 10px;
+      }
+      .receipt-header,
+      .receipt-footer {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .receipt-body {
+        margin-bottom: 20px;
+      }
+      .receipt-body table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .receipt-body table th,
+      .receipt-body table td {
+        border: 1px solid #000;
+        padding: 5px;
+        text-align: left;
+      }
+      .total {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="receipt">
+      <div class="receipt-header">
+        <h2>Warung Toko Kasir</h2>
+        <p>Jl. Contoh No. 123, Jakarta</p>
+      </div>
+      <div class="receipt-body">
+        <p><strong>Tanggal:</strong> {{ transaction.date }}</p>
+        <p><strong>ID Transaksi:</strong> {{ transaction.id }}</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Nama Produk</th>
+              <th>Jumlah</th>
+              <th>Harga</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in transaction.items %}
+            <tr>
+              <td>{{ item.name }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.price }}</td>
+              <td>{{ item.subtotal }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <p class="total">
+          <strong>Total:</strong> Rp {{ transaction.total_price }}
+        </p>
+        <p>
+          <strong>Metode Pembayaran:</strong> {{ transaction.payment_method }}
+        </p>
+        <p><strong>Uang Diterima:</strong> Rp {{ transaction.cash }}</p>
+        <p><strong>Kembalian:</strong> Rp {{ transaction.change }}</p>
+      </div>
+      <div class="receipt-footer">
+        <p>Terima kasih atas kunjungan Anda!</p>
+        <p>Selamat berbelanja kembali.</p>
+      </div>
+    </div>
+    <script>
+      // Fungsi untuk mencetak struk secara otomatis setelah halaman dimuat
+      window.onload = function () {
+        window.print();
+      };
+    </script>
+  </body>
+</html>

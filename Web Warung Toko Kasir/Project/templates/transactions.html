@@ -1,0 +1,53 @@
+<!-- transactions.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Riwayat Transaksi</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Riwayat Transaksi</h1>
+
+      <a href="{{ url_for('dashboard') }}" class="btn btn-back"
+        >Kembali ke Dashboard</a
+      >
+
+      <a href="{{ url_for('start_transaction') }}" class="btn btn-back">
+        Mulai Transaksi Baru
+      </a>
+
+      {% if transactions %}
+      <table>
+        <thead>
+          <tr>
+            <th>ID Transaksi</th>
+            <th>Nama Produk</th>
+            <th>Jumlah</th>
+            <th>Total Harga</th>
+            <th>Waktu Transaksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for transaction in transactions %}
+          <tr>
+            <td>{{ transaction[0] }}</td>
+            <td>{{ transaction[1] }}</td>
+            <td>{{ transaction[2] }}</td>
+            <td>Rp{{ transaction[3] }}</td>
+            <td>{{ transaction[4] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p>Tidak ada transaksi yang ditemukan.</p>
+      {% endif %}
+    </div>
+  </body>
+</html>

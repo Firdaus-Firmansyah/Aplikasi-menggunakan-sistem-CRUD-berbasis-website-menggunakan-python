@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kasir</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Mulai Transaksi</h1>
+      <form method="POST">
+        <label for="product_id">Pilih Produk:</label>
+        <select name="product_id" id="product_id" required>
+          {% for product in products %}
+          <option value="{{ product[0] }}">
+            {{ product[1] }} - Rp {{ product[2] }} (Stok: {{ product[3] }})
+          </option>
+          {% endfor %}
+        </select>
+
+        <label for="quantity">Jumlah:</label>
+        <input
+          type="number"
+          name="quantity"
+          id="quantity"
+          required
+          min="1"
+          max="100"
+        />
+
+        <button type="submit">Tambahkan Produk</button>
+      </form>
+
+      <h2>Transaksi</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nama Produk</th>
+            <th>Harga</th>
+            <th>Jumlah</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in cart %}
+          <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.price }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.total }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <h3>Total Transaksi: Rp {{ total_amount }}</h3>
+
+      <form action="{{ url_for('pay') }}" method="POST">
+        <label for="total_amount">Total Pembayaran:</label>
+        <input
+          type="text"
+          id="total_amount"
+          name="total_amount"
+          value="{{ total_amount }}"
+          readonly
+        />
+
+        <label for="paid_amount">Jumlah Dibayar:</label>
+        <input type="number" id="paid_amount" name="paid_amount" required />
+
+        <button type="submit">Bayar</button>
+      </form>
+
+      <a href="{{ url_for('products') }}">Lihat Produk</a> |
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+  </body>
+</html>

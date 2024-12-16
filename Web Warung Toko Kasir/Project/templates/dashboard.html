@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Kasir</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Selamat Datang, Mimin!</h1>
+
+      <!--<h2>DAFTAR PRODUK YANG TERSEDIA</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID Produk</th>
+            <th>Nama Produk</th>
+            <th>Harga</th>
+            <th>Stok</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for product in products %}
+          <tr>
+            <td>{{ product[0] }}</td>
+            <td>{{ product[1] }}</td>
+            <td>{{ product[2] }}</td>
+            <td>{{ product[3] }}</td>
+            <td>
+              <a
+                href="{{ url_for('update_product', id=product[0]) }}"
+                class="btn btn-edit"
+                >Edit</a
+              >
+              <a
+                href="{{ url_for('delete_product', id=product[0]) }}"
+                onclick="return confirm('Hapus produk ini?')"
+                class="btn btn-delete"
+                >Hapus</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>-->
+
+      <a href="{{ url_for('logout') }}" class="btn btn-back">Logout</a>
+
+      <a href="{{ url_for('transactions') }}" class="btn btn-add"
+        >Daftar Transaksi</a
+      >
+
+      <a href="{{ url_for('products') }}" class="btn btn-add">Daftar Produk</a>
+
+      <div class="dashboard-info">
+        <div class="info-item">
+          <h3>Total Transaksi Selesai</h3>
+          <p class="big-number">3</p>
+        </div>
+        <div class="info-item">
+          <h3>Total Produk</h3>
+          <p class="big-number">50</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

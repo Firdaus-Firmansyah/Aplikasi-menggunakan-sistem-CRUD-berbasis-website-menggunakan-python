@@ -1,0 +1,64 @@
+<!-- checkout.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Selesaikan Transaksi</h1>
+
+      <a href="{{ url_for('start_transaction') }}" class="btn btn-back">
+        Kembali ke Transaksi
+      </a>
+
+      <!-- Menampilkan daftar produk dalam keranjang -->
+      <h2>Keranjang Belanja</h2>
+      {% if carts %}
+      <table>
+        <thead>
+          <tr>
+            <th>Nama Produk</th>
+            <th>Harga Satuan</th>
+            <th>Jumlah</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in carts %}
+          <tr>
+            <td>{{ item['name'] }}</td>
+            <td>Rp{{ item['price'] }}</td>
+            <td>{{ item['quantity'] }}</td>
+            <td>Rp{{ item['price'] * item['quantity'] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <!-- Menampilkan total harga -->
+      <h3>Total: Rp{{ total_price }}</h3>
+      {% else %}
+      <p>Keranjang Anda kosong. Silakan tambahkan produk.</p>
+      {% endif %}
+
+      <!-- Formulir untuk memilih metode pembayaran -->
+      <form method="POST">
+        <h2>Pilih Metode Pembayaran</h2>
+        <label>
+          <input type="radio" name="payment_method" value="cash" checked />
+          Pembayaran Tunai (Cash) </label
+        ><br />
+        <button type="submit" class="btn btn-checkout">
+          Selesaikan Pembayaran
+        </button>
+      </form>
+    </div>
+  </body>
+</html>

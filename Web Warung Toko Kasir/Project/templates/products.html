@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daftar Produk</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>DAFTAR PRODUK YANG TERSEDIA</h1>
+
+      <a href="{{ url_for('dashboard') }}" class="btn btn-back"
+        >Kembali ke Dashboard</a
+      >
+
+      <!-- Tombol untuk menambahkan produk -->
+      <a href="{{ url_for('add_product') }}" class="btn btn-add"
+        >Tambah Produk</a
+      >
+
+      <!-- Menampilkan daftar produk -->
+      {% if products %}
+      <table>
+        <thead>
+          <tr>
+            <th>Nama Produk</th>
+            <th>Harga</th>
+            <th>Stok</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for product in products %}
+          <tr>
+            <td>{{ product[1] }}</td>
+            <td>{{ product[2] }}</td>
+            <td>{{ product[3] }}</td>
+            <td>
+              <a
+                href="{{ url_for('update_product', id=product[0]) }}"
+                class="btn btn-edit"
+                >Edit</a
+              >
+              <a
+                href="{{ url_for('delete_product', id=product[0]) }}"
+                class="btn btn-delete"
+                >Hapus</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p>No products available.</p>
+      {% endif %}
+    </div>
+  </body>
+</html>

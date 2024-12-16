@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Input Uang Tunai</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <h1>Selesaikan Transaksi</h1>
+    <p>Total Harga: Rp{{ total_price }}</p>
+
+    <form action="{{ url_for('complete_transaction') }}" method="POST">
+      <label for="cash">Uang Tunai (Cash):</label>
+      <input
+        type="number"
+        id="cash"
+        name="cash"
+        placeholder="Masukkan jumlah uang"
+        required
+      />
+      <button type="submit">Selesaikan</button>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mulai Transaksi</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Transaksi Baru</h1>
+
+      <a href="{{ url_for('transactions') }}" class="btn btn-back">
+        Kembali ke Transaksi Selesai
+      </a>
+
+      <!-- Pencarian Produk -->
+      <h2>Cari Produk</h2>
+      <form method="POST">
+        <input
+          type="text"
+          name="search_query"
+          placeholder="Cari produk..."
+          required
+        />
+        <button type="submit">Cari</button>
+      </form>
+
+      {% if products %}
+      <h3>Hasil Pencarian:</h3>
+      <ul>
+        {% for product in products %}
+        <li>
+          {{ product[1] }} - Rp{{ product[2] }} (Stok: {{ product[3] }})
+          <a href="{{ url_for('add_to_cart', product_id=product[0]) }}">
+            Tambah ke Keranjang
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p>Produk tidak ditemukan.</p>
+      {% endif %}
+
+      <!-- Keranjang Belanja -->
+      <h2>Keranjang Belanja</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nama Produk</th>
+            <th>Harga Satuan</th>
+            <th>Jumlah</th>
+            <th>Subtotal</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in carts %}
+          <tr>
+            <td>{{ item['name'] }}</td>
+            <td>Rp{{ item['price'] }}</td>
+            <td>{{ item['quantity'] }}</td>
+            <td>Rp{{ item['price'] * item['quantity'] }}</td>
+            <td>
+              <a
+                href="{{ url_for('remove_from_cart', product_id=item['id']) }}"
+              >
+                Hapus
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <!--<h3>Total: Rp{{ total }}</h3>-->
+      <h1></h1>
+      <h></h>
+      <h></h>
+
+      <!-- Tombol Checkout -->
+      <form method="POST">
+        <button type="submit">
+          <a href="{{ url_for('checkout') }}">Selesaikan Transaksi</a>
+        </button>
+      </form>
+    </div>
+  </body>
+</html>

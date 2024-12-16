@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tambah Produk</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Tambah Produk Baru</h1>
+      <a href="{{ url_for('products') }}" class="btn btn-back"
+        >Kembali ke Daftar Product</a
+      >
+      <form method="POST">
+        <label>Nama Produk:</label>
+        <input type="text" name="name" required />
+        <label>Harga:</label>
+        <input type="number" name="price" required />
+        <label>Stok:</label>
+        <input type="number" name="stock" required />
+        <button type="submit">Tambah</button>
+      </form>
+
+      <!-- Tombol untuk kembali ke Dashboard -->
+    </div>
+  </body>
+</html>
